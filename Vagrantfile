@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         # specify region, AMI ID, and security group(s)
         aws.region = 'us-east-1'
-        aws.ami = 'ami-0e9fd1c836b42538e'
+        aws.ami = 'ami-0c7d8678e345b414c'
         aws.instance_type = 't3.nano'
         aws.subnet_id = 'subnet-15b52570'
         aws.security_groups = 'sg-00726a0897aae5445'
