@@ -52,7 +52,7 @@ pip install aws-cli
 aws ec2 import-key-pair --key-name "AccessPointKey" --public-key-material file://~/.ssh/id_rsa.pub
 ```
 
-- Make sure there is a Default VPC in the Zone intended to launch the App
+- Make sure there is a Default VPC in the Zone intended to launch the App and a Security Group with an Inbound access to SSH and HTTP standard ports
 
 - Use *Vagrant-AWS* plugin that adds AWS provider to Vagrant to control and provision machines in Amazon Web Services.
 
