@@ -1,0 +1,82 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+
+  vars:
+    HTTP_PORT: 80
+    MAX_CLIENTS: 200
+    WP_MYSQL_USERNAME: wordpress
+    WP_MYSQL_PASSWORD: wordpress
+    WP_MYSQL_DBNAME: db_wordpress
+
+  tasks:
+  - name: upgrade all packages
+    yum: name=* state=latest
+    tags: pkgs_upgrade
+  
+  - name: install 'Development tools' package group
+    yum: name="@Development tools" state=present
+    tags: pkgs_tools
+
+  - name: prepare app deployment environment
+    yum: pkg={{ item }} state=latest
+    with_items:
+      - httpd
+      - httpd-tools
+      - mysql-server
+      - php
+      - php-cli
+      - php-devel
+      - php-mbstring
+      - php-pear
+      - git
+
+  - name: create mysql database credentials
+    mysql_user:
+      name: "{{ WP_MYSQL_USERNAME }}"
+      password: "{{ WP_MYSQL_PASSWORD }}"
+      host: localhost
+      priv: '*.*:ALL,GRANT'
+      state: present
+
+  - name: create wordpress database
+    mysql_db:
+      name: "{{ WP_MYSQL_DBNAME }}"
+      state: present
+
+  - name: set docroot permission to www service account
+    file: 
+      path: '/var/www/html/'
+      owner: apache
+      group: apache
+      recurse: yes
+      state: directory
+
+  - name: clean html docroot folder
+    file: 
+      path: '/var/www/html/index.html'
+      state: absent
+
+  - name: fetch wordpress 
+    git:
+      repo: 'https://github.com/WordPress/WordPress.git'
+      dest: /var/www/html/
+      version: master
+    become: yes
+    become_user: apache
+
+#
+# To add Templates
+#
+#  - name: write the apache config file
+#    template:
+#      src: /templates/conf/httpd.j2
+#      dest: /etc/httpd.conf
+#    notify:
+#    - restart apache
+#  handlers:
+#    - name: restart apache
+#      service:
+#        name: httpd
+#        state: restarted
