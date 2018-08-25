@@ -11,7 +11,7 @@ If installing Ansible directly on the Vagrant host is not an option in your deve
 
 - Use Ansible to install:
     - HTTP Server
-
+    - Use git to manage changes and version based deployment eg WordPress source code for this example
 - Optional : Create 2 ec2 web nodes and add ELB at the front as a reverse proxy
 
 ### Additional notes:
@@ -46,6 +46,12 @@ vagrant plugin install vagrant-digitalocean
 ```
 pip install aws-cli
 ```
+
+- Generate a keypair and set as a part of other AWS ENV eg AWS_SECRET-ACCESS_KEY, AWS_ACCESS_KEY_ID and AWS_KEYPAIR_NAME
+```
+aws ec2 import-key-pair --key-name "AccessPointKey" --public-key-material file://~/.ssh/id_rsa.pub
+```
+
 - Use *Vagrant-AWS* plugin that adds AWS provider to Vagrant to control and provision machines in Amazon Web Services.
 
 ### For Azure:
