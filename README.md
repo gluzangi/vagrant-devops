@@ -1,4 +1,4 @@
-# Alternative Cost Reduction Approach : Vagrant Using Virtualbox and Ansible
+# Using Vagrant and Ansible With Public Cloud Providers
 
 The Vagrant Ansible provisioner allows you to provision the guest using Ansible playbooks by executing ansible-playbook from the Vagrant host.
 
