@@ -18,11 +18,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         aws.keypair_name = ENV['AWS_KEYPAIR_NAME']
 
         # specify region, AMI ID, and security group(s)
-        aws.region = 'us-east-1'
+        aws.region = ENV['AWS_AVAILABILITY_ZONE']
         aws.ami = 'ami-0c7d8678e345b414c'
         aws.instance_type = 't3.nano'
-        aws.subnet_id = 'subnet-15b52570'
-        aws.security_groups = 'sg-00726a0897aae5445'
+        aws.subnet_id = ENV['AWS_SUBNET_ID']
+        aws.security_groups = ENV['AWS_SECURITY_GROUP']
         aws.associate_public_ip = 'true'
 
         # specify username and private key path

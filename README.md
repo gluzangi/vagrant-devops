@@ -47,7 +47,7 @@ vagrant plugin install vagrant-digitalocean
 pip install aws-cli
 ```
 
-- Generate a keypair and set as a part of other AWS ENV eg AWS_SECRET-ACCESS_KEY, AWS_ACCESS_KEY_ID and AWS_KEYPAIR_NAME
+- Generate a keypair and set as a part of other AWS ENV eg AWS_SECRET-ACCESS_KEY, AWS_ACCESS_KEY_ID and AWS_KEYPAIR_NAME. Also pass AWS_AVAILABILITY_ZONE, AWS_SUBNET_ID and AWS_SECURITY_GROUP to parameterize the destination VPC for deployment
 ```
 aws ec2 import-key-pair --key-name "AccessPointKey" --public-key-material file://~/.ssh/id_rsa.pub
 ```
